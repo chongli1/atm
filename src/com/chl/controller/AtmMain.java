@@ -1,11 +1,9 @@
 package com.chl.controller;
 
 //自动导包
-import com.chl.entity.Customer;
-import com.chl.entity.CustomerData;
+import com.chl.service.CustomerService;
 import com.chl.util.TextUtil;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,10 +16,13 @@ public class AtmMain {
     private static String cardid;
     private static String cardPwd;
 
+    private static CustomerService customerService;
+
     public static void main(String[] args) {
+         customerService = new CustomerService();
         //测试 客户类 的数据  //作业1、对Manager管理类做出 单例模式，并测试是否 数据初始化了
-        CustomerData customerDate = CustomerData.getInstance(); //调用CustomerData中的getInstance()
-        List<Customer> customerList = customerDate.getCustomerList(); //拿到CustomerData中这10个数据
+//        CustomerData customerDate = CustomerData.getInstance(); //调用CustomerData中的getInstance()
+//        List<Customer> customerList = customerDate.getCustomerList(); //拿到CustomerData中这10个数据
 //        for (Customer customer : customerList) {
 //           System.out.println("customer = " + customer); //通过遍历测试一下是否拿到了10个数据
 //       }
@@ -46,6 +47,7 @@ public class AtmMain {
         //1、先校检角色，判断 cardid 的长度
         if (cardid.length()==8) { //密码为8，为客户
             //校验密码
+            customerService.checkPwd(cardid,cardPwd);
 
         }
     }
