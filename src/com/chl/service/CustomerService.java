@@ -57,12 +57,28 @@ public class CustomerService {//因为无法与list做对比，所以要把list�
                 break;
             case "4":
                 System.out.println("存款");
+                doSaveMoney();
+                goOneHome();
                 break;
             case "5":
                 System.out.println("退卡");
                 break;
 
         }
+    }
+
+    //存款
+    private void doSaveMoney() {
+        //1、有个提示界面
+        System.out.println("请输入您想存入的金额");
+        //2、scanner 接收 钱数
+        Scanner scanner = new Scanner(System.in);
+        String moneyIn = scanner.nextLine();
+        Double moneyInInt = Double.valueOf(moneyIn);
+        double newMoney = currentCustomer.getMoney() + moneyInInt;  //ctrl+alt+v 快速返回数据类型
+        //3、更新 当前用户的余额
+        currentCustomer.setMoney(newMoney); //更新过
+        System.out.println("您账户的余额是：" + newMoney);
     }
 
     //转账
