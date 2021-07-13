@@ -61,8 +61,26 @@ public class CustomerService {//因为无法与list做对比，所以要把list�
                 goOneHome();
                 break;
             case "5":
-                System.out.println("退卡");
+                doQuitCard();
                 break;
+
+        }
+    }
+
+
+
+
+    //退卡
+    private void doQuitCard() {
+        System.out.println("你是否继续操作yes/no[Y/N]");
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.nextLine();
+        if (s.equalsIgnoreCase("y")) {
+            TextUtil.welcome();
+        }
+
+        if (s.equalsIgnoreCase("n")) {
+            System.out.println("请取出您的信用卡");
 
         }
     }
@@ -71,15 +89,38 @@ public class CustomerService {//因为无法与list做对比，所以要把list�
     private void doSaveMoney() {
         //1、有个提示界面
         System.out.println("请输入您想存入的金额");
-        //2、scanner 接收 钱数
-        Scanner scanner = new Scanner(System.in);
-        String moneyIn = scanner.nextLine();
-        Double moneyInInt = Double.valueOf(moneyIn);
-        double newMoney = currentCustomer.getMoney() + moneyInInt;  //ctrl+alt+v 快速返回数据类型
-        //3、更新 当前用户的余额
-        currentCustomer.setMoney(newMoney); //更新过
-        System.out.println("您账户的余额是：" + newMoney);
+        System.out.println("1.100    2.200    3.其他");
+        Scanner sc = new Scanner(System.in);
+        int cun = sc.nextInt();
+        if (cun == 1) {
+            double r = currentCustomer.getMoney() + 100;
+            System.out.println("您的账户余额是" + r);
+            currentCustomer.setMoney(r);
+        } else if (cun == 2) {
+            double r = currentCustomer.getMoney() + 200;
+            System.out.println("您的账户余额是" + r);
+            currentCustomer.setMoney(r);
+        } else if (cun == 3) {
+            System.out.println("请存入1000元及以上的整钱");
+            double t = sc.nextDouble();
+            if (t % 100 == 0) {
+                if (t >= 1000) {
+                    double r = currentCustomer.getMoney() + t;
+                    System.out.println("您的账户余额是" + r);
+                    currentCustomer.setMoney(r);
+                } else {
+                    System.out.println("您存入的钱小于1000");
+                }
+            } else {
+                System.out.println("请存入整钱");
+            }
+
+        }else{
+            System.out.println("请放入百元");
+        }
+
     }
+
 
     //转账
     private void doTruanMoney(){
